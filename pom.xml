@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.asciidoctor.maven</groupId>
+  <artifactId>asciidoctor-maven-multimodule</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
+    <asciidoctor.maven.plugin.version>1.5.7-SNAPSHOT</asciidoctor.maven.plugin.version>
+    <asciidoctorj.version>1.5.7</asciidoctorj.version>
+    <asciidoctorj.diagram.version>1.5.9</asciidoctorj.diagram.version>
+    <jruby.version>9.1.17.0</jruby.version>
+  </properties>
+
+  <build>
+    <defaultGoal>process-resources</defaultGoal>
+    <!--
+     NOTE: work in `plugins` cause parent is ignored since it has no sources.
+     But a good configuration should use  `pluginManagement`
+      -->
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.7</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.asciidoctor</groupId>
+        <artifactId>asciidoctor-maven-plugin</artifactId>
+        <version>${asciidoctor.maven.plugin.version}</version>
+        <dependencies>
+          <!-- Comment this section to use the default jruby artifact provided by the plugin -->
+          <dependency>
+            <groupId>org.jruby</groupId>
+            <artifactId>jruby-complete</artifactId>
+            <version>${jruby.version}</version>
+          </dependency>
+          <!-- Comment this section to use the default AsciidoctorJ artifact provided by the plugin -->
+          <dependency>
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctorj</artifactId>
+            <version>${asciidoctorj.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctorj-diagram</artifactId>
+            <version>${asciidoctorj.diagram.version}</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <sourceDirectory>src/docs/asciidoc</sourceDirectory>
+          <preserveDirectories>true</preserveDirectories>
+          <attributes>
+            <endpoint-url>http://example.org</endpoint-url>
+            <sourcedir>${project.build.sourceDirectory}</sourcedir>
+            <project-version>${project.version}</project-version>
+          </attributes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>asciidoc-to-html</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>process-asciidoc</goal>
+            </goals>
+            <configuration>
+              <requires>
+                <require>asciidoctor-diagram</require>
+              </requires>
+              <backend>html5</backend>
+              <sourceHighlighter>coderay</sourceHighlighter>
+              <attributes>
+                <imagesdir>./images</imagesdir>
+                <toc>left</toc>
+                <icons>font</icons>
+                <docinfo1>true</docinfo1>
+              </attributes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!--
+      NOTE: Use the maven-resources-plugin if there are assets outside the AsciiDoc source folder
+            that need to be copied to the generated-docs. The Maven plugin automatically copies
+            non-AsciiDoc files in the AsciiDoc source folder to generated-docs.
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>2.6</version>
+          <executions>
+              <execution>
+                  <id>copy-asciidoc-resources</id>
+                  <phase>process-resources</phase>
+                  <goals>
+                      <goal>copy-resources</goal>
+                  </goals>
+                  <configuration>
+                      <resources>
+                          <resource>
+                              <directory>src/docs/resources</directory>
+                              <includes>
+                                  <include>**/*.jpg</include>
+                                  <include>**/*.png</include>
+                              </includes>
+                          </resource>
+                      </resources>
+                      <outputDirectory>target/generated-docs</outputDirectory>
+                  </configuration>
+              </execution>
+          </executions>
+      </plugin>
+      -->
+    </plugins>
+    <!--</pluginManagement>-->
+  </build>
+
+  <modules>
+    <module>asciidoc-to-html-1</module>
+    <module>asciidoc-to-html-2-diagram</module>
+    <module>asciidoc-to-html-3-site</module>
+  </modules>
+
+</project>
