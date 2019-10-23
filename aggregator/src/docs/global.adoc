@@ -1,5 +1,10 @@
 = Example Manual
-Doc Writer <doc.writer@example.org>
+ifdef::env-idea[]
+:imagesdir: ../images
+endif::[]
+ifdef::pdf-aggregated-conversion[]
+:imagesdir: ../../src/images
+endif::[]
 
 This is aggregator module.
 
@@ -10,6 +15,7 @@ This is a "sibling" aggregator module.
 image::aggregator.png[]
 
 == Module 1
+ifdef::env-idea[:imagesdir: ../../../aggregated-1/src/docs/images]
 
 This is Module 1's readme.
 

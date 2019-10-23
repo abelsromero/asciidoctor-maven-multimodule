@@ -103,6 +103,7 @@
                 <pagenums/>
                 <idprefix/>
                 <idseparator>-</idseparator>
+                <pdf-aggregated-conversion/>
               </attributes>
             </configuration>
           </execution>

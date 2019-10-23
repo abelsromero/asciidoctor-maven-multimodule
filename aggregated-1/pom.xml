@@ -65,15 +65,11 @@
               <sourceDocumentName>README.adoc</sourceDocumentName>
               <resources>
                 <resource>
-                  <directory>src/images</directory>
+                  <directory>${project.basedir}/src/docs/images</directory>
                   <targetPath>images</targetPath>
                   <includes>
-                    <include>**/*.png</include>
+                    <include>*.png</include>
                   </includes>
-                  <excludes>
-                    <directory>${project.basedir}</directory>
-                    <exclude>**/**</exclude>
-                  </excludes>
                 </resource>
               </resources>
               <backend>html5</backend>
@@ -92,13 +88,25 @@
               <goal>process-asciidoc</goal>
             </goals>
             <configuration>
+              <sourceDirectory>${project.basedir}</sourceDirectory>
+              <sourceDocumentName>README.adoc</sourceDocumentName>
               <backend>pdf</backend>
+              <resources>
+                <resource>
+                  <directory>src/docs/images</directory>
+                  <excludes>
+                    <directory>${project.basedir}</directory>
+                    <exclude>**/**</exclude>
+                  </excludes>
+                </resource>
+              </resources>
               <attributes>
                 <toc/>
                 <icons>font</icons>
                 <pagenums/>
                 <idprefix/>
                 <idseparator>-</idseparator>
+                <pdf-single-conversion/>
               </attributes>
             </configuration>
           </execution>

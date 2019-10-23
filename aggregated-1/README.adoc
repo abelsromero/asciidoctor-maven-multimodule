@@ -1,4 +1,13 @@
 = Module 1 Readme
+ifdef::env-idea[]
+:imagesdir: src/docs/images
+endif::[]
+ifdef::pdf-single-conversion[]
+:imagesdir: src/docs/images
+endif::[]
+ifdef::pdf-aggregated-conversion[]
+:imagesdir: ../../../aggregated-1/src/docs/images
+endif::[]
 
 This is the readme file of the Module 1.
 
