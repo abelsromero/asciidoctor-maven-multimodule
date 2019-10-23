@@ -129,6 +129,9 @@
     <module>asciidoc-to-html-1</module>
     <module>asciidoc-to-html-2-diagram</module>
     <module>asciidoc-to-html-3-site</module>
+    <module>aggregator</module>
+    <module>aggregated-1</module>
+    <module>aggregated-2</module>
   </modules>
 
 </project>

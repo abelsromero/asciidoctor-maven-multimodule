@@ -1,0 +1,22 @@
+= Example Manual
+Doc Writer <doc.writer@example.org>
+
+This is aggregator module.
+
+== Introduction
+
+This is a "sibling" aggregator module.
+
+image::aggregator.png[]
+
+== Module 1
+
+This is Module 1's readme.
+
+include::../../../aggregated-1/README.adoc[leveloffset=+1]
+
+== Module 2
+
+This is Module 2's readme.
+
+include::../../../aggregated-2/README.adoc[leveloffset=+1]

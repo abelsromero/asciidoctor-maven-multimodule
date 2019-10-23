@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.asciidoctor.maven</groupId>
+  <artifactId>aggregated-2</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+
+  <parent>
+    <groupId>org.asciidoctor.maven</groupId>
+    <artifactId>asciidoctor-maven-multimodule</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.asciidoctor</groupId>
+        <artifactId>asciidoctor-maven-plugin</artifactId>
+        <version>${asciidoctor.maven.plugin.version}</version>
+        <dependencies>
+          <!-- Comment this section to use the default jruby artifact provided by the plugin -->
+          <dependency>
+            <groupId>org.jruby</groupId>
+            <artifactId>jruby-complete</artifactId>
+            <version>${jruby.version}</version>
+          </dependency>
+          <!-- Comment this section to use the default AsciidoctorJ artifact provided by the plugin -->
+          <dependency>
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctorj</artifactId>
+            <version>${asciidoctorj.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctorj-pdf</artifactId>
+            <version>${asciidoctorj.pdf.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctorj-diagram</artifactId>
+            <version>${asciidoctorj.diagram.version}</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <sourceDirectory>src/docs</sourceDirectory>
+          <preserveDirectories>true</preserveDirectories>
+          <attributes>
+            <endpoint-url>http://example.org</endpoint-url>
+            <sourcedir>${project.build.sourceDirectory}</sourcedir>
+            <project-version>${project.version}</project-version>
+            <sectnums/>
+          </attributes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>asciidoc-to-html</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>process-asciidoc</goal>
+            </goals>
+            <configuration>
+              <sourceDirectory>${project.basedir}</sourceDirectory>
+              <sourceDocumentName>README.adoc</sourceDocumentName>
+              <resources>
+                <resource>
+                  <directory>src/images</directory>
+                  <targetPath>images</targetPath>
+                  <includes>
+                    <include>**/*.png</include>
+                  </includes>
+                  <excludes>
+                    <directory>${project.basedir}</directory>
+                    <exclude>**/**</exclude>
+                  </excludes>
+                </resource>
+              </resources>
+              <backend>html5</backend>
+              <attributes>
+                <toc>left</toc>
+                <icons>font</icons>
+                <idprefix/>
+                <idseparator>-</idseparator>
+              </attributes>
+            </configuration>
+          </execution>
+          <execution>
+            <id>asciidoc-to-pdf</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>process-asciidoc</goal>
+            </goals>
+            <configuration>
+              <backend>pdf</backend>
+              <attributes>
+                <toc/>
+                <icons>font</icons>
+                <pagenums/>
+                <idprefix/>
+                <idseparator>-</idseparator>
+              </attributes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

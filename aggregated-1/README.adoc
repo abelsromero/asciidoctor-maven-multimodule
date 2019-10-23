@@ -1,0 +1,10 @@
+= Module 1 Readme
+
+This is the readme file of the Module 1.
+
+== Description
+
+This is a test module which includes images.
+
+.Local module image
+image::module-1.png[]

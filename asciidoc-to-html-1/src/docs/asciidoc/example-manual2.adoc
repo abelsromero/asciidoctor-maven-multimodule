@@ -6,7 +6,7 @@ Doc Writer <doc.writer@example.org>
 ifndef::imagesdir[:imagesdir: images]
 ifndef::sourcedir[:sourcedir: ../../main/java]
 
-This is a user manual for an example project.
+This is a user manual 1 for an example project.
 
 == Introduction
 
